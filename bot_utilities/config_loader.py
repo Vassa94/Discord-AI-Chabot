@@ -28,14 +28,28 @@ def load_current_language() -> dict:
 # Instructions loader
 def load_instructions() -> dict:
     instructions = {}
-    for file_name in os.listdir("instructions"):
+    instructions_path = "instructions"
+
+    # Verificar si la carpeta "instructions" existe
+    if not os.path.exists(instructions_path):
+        print(f"La carpeta '{instructions_path}' no existe.")
+        return instructions
+
+    # Iterar sobre los archivos en la carpeta "instructions"
+    for file_name in os.listdir(instructions_path):
+        print(file_name)
         if file_name.endswith('.txt'):
-            file_path = os.path.join("instructions", file_name)
-            with open(file_path, 'r', encoding='utf-8') as file:
-                file_content = file.read()
-            # Use the file name without extension as the variable name
-                variable_name = file_name.split('.')[0]
+            file_path = os.path.join(instructions_path, file_name)
+            try:
+                with open(file_path, 'r', encoding='utf-8') as file:
+                    file_content = file.read()
+
+                # Usar el nombre del archivo sin la extensión como el nombre de la variable
+                variable_name = os.path.splitext(file_name)[0]
                 instructions[variable_name] = file_content
+            except Exception as e:
+                print(f"Error al leer el archivo '{file_name}': {e}")
+    print(instructions)
     return instructions
 
 def load_active_channels() -> dict:
