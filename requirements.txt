@@ -8,4 +8,4 @@ pyttsx3
 PyYAML
 Requests
 openai
-duckduckgo-search
+duckduckgo-search==3.9.3
